@@ -13,9 +13,9 @@
     ClassLoader::loadAll();
     if(!empty($_POST)){
         if(isset($_POST['action'])){
-            ClassLoader::loadClass($_POST['action'], 'module');
+            ModuleLoader::loadModule($_POST['action']);
         }
-    }  
+    }
 ?>
 </pre>
 </body>
