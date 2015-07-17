@@ -1,5 +1,6 @@
 <?php
 $user = new User();
+$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $res = $user->selectByEmail($_POST['email']);
 if($res !== false){
     echo 'USER_ALREADY_PRESENT';

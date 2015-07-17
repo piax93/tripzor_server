@@ -1,4 +1,5 @@
 <?php
+$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $user = new User();
 if($user->selectByEmail($_POST['email'])){
     $newPassword = uniqid();

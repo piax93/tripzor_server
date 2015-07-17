@@ -1,0 +1,3 @@
+<Files "ClassLoader.php">
+deny from all
+</Files>

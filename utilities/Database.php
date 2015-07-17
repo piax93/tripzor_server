@@ -35,16 +35,19 @@ class Database {
      * @return mixed An array of associative arrays representing selected rows, false in case of failure, 
      *      true in case of success with nothing to return
      */
-    public function execQuery($query, $hasResult = true){
+    public function execQuery($query, $hasResult = true, $waitToCommit = false){
         mysqli_autocommit($this->connection, false);
         mysqli_begin_transaction($this->connection);
         $result = mysqli_query($this->connection, $query);
         if($result !== false){
-            mysqli_commit($this->connection);
+            if(!$waitToCommit){
+                mysqli_commit($this->connection);
+                mysqli_autocommit($this->connection, true);
+            }
         }else{
             mysqli_rollback($this->connection);
+            mysqli_autocommit($this->connection, true);
         }
-        mysqli_autocommit($this->connection, true);
         if($hasResult){
             $returnArray = array(); $i = 0;
             if($result !== NULL){
