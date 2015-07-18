@@ -32,6 +32,7 @@ class Database {
      * Executes a query
      * @param string $query Query to execute
      * @param bool $hasResult Does the query return anything ?
+     * @param bool $waitToCommit To perform transactions
      * @return mixed An array of associative arrays representing selected rows, false in case of failure, 
      *      true in case of success with nothing to return
      */

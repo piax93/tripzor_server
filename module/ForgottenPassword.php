@@ -16,13 +16,13 @@ if($user->selectByEmail($_POST['email'])){
             $i++;
         }
         if($i === 20){
-            echo 'MAIL_NOT_SENT';
+            echo ReturnCode::$mailError;
         }else{
-            echo 'DONE';
+            echo ReturnCode::$success;
         }
     }else{
-        echo 'ERROR';
+        echo ReturnCode::$error;
     }
 }else{
-    echo 'USER_NOT_FOUND';
+    echo ReturnCode::$userNotFound;
 }
