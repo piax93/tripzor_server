@@ -3,7 +3,8 @@
 header('Content-Type:text/plain; charset=UTF-8');
 include 'ClassLoader.php';
 
-//POST FILTERING
+ 
+// POST FILTERING
 foreach ($_POST as $key => $value) {
     $value = strip_tags($value);
     $_POST[$key] = preg_replace('/\s+/', '', $value);
