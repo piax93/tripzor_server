@@ -8,12 +8,12 @@ if($user->selectByEmail($_SESSION['user'])){
     $trip->setNPart(1);
     $res = $trip->insert();
     if($res){
-        echo 'DONE';
+        echo ReturnCode::$success;
     }else{
-        echo 'ERROR';
+        echo ReturnCode::$error;
     }
 }else{
-    echo 'USER_NOT_FOUND';
+    echo ReturnCode::$userNotFound;
 }
 
 

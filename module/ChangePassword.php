@@ -6,13 +6,13 @@ if($user->selectByEmail($_SESSION['user'])){
         if($_POST['newPassword'] != ''){
             $user->setPassword(md5($_POST['newPassword']));
             if($user->update()){
-                echo 'DONE';
+                echo ReturnCode::$success;
                 exit();
             }
         }
     }
-    echo 'ERROR';
+    echo ReturnCode::$error;
 }else{
-    echo 'USER_NOT_FOUND';
+    echo ReturnCode::$userNotFound;
 }
 
