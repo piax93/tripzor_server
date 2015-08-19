@@ -1,9 +1,8 @@
+Hi, welcome to an empty page :-)
 <?php
 
 header('Content-Type:text/plain; charset=UTF-8');
 include 'ClassLoader.php';
-
-echo 'Welcome to an empty page';
 
 / POST FILTERING
 foreach ($_POST as $key => $value) {
