@@ -1,7 +1,7 @@
 <?php
 header('Content-Type:text/plain; charset=UTF-8');
 include 'ClassLoader.php';
-echo 'hi';
+
 // POST FILTERING
 foreach ($_POST as $key => $value) {
     $value = strip_tags($value);
