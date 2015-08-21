@@ -11,7 +11,7 @@ class Database {
     
     private function __construct() {
         include 'values/DBcredentials.php';
-        $this->connection = mysqli_connect($address, $user, $password, 'tripzor');
+        $this->connection = mysqli_connect($address, $user, $password, $databaseName);
         if ($this->connection === FALSE) {
             die('Error connecting to DB');
         }
