@@ -9,8 +9,8 @@ if($res !== false){
     $user->fillByAssoc($_POST);
     $res = $user->insert();
     if($res !== false){
-        echo ReturnCode::$error;
-    }else{
         echo ReturnCode::$success;
+    }else{
+        echo ReturnCode::$error;
     }
 }
