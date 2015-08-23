@@ -1,5 +1,5 @@
 <?php
-// error_reporting(E_ALL);
+error_reporting(E_ALL);
 header('Content-Type:text/plain; charset=UTF-8');
 include 'ClassLoader.php';
 
