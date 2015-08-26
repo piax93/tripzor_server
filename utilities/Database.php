@@ -38,7 +38,7 @@ class Database {
      */
     public function execQuery($query, $hasResult = true, $waitToCommit = false){
         mysqli_autocommit($this->connection, false);
-        mysqli_begin_transaction($this->connection);
+        // mysqli_begin_transaction($this->connection);
         $result = mysqli_query($this->connection, $query);
         
 	ob_start();
