@@ -12,7 +12,7 @@ class User extends DbEntity{
     private $cellPhone;
     private $name;
     private $surname;
-    private $birthday;
+    private $birthday = 'NULL';
     
     public function login($password){
         $encr = md5($password);
