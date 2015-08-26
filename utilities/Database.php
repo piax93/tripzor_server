@@ -40,7 +40,14 @@ class Database {
         mysqli_autocommit($this->connection, false);
         mysqli_begin_transaction($this->connection);
         $result = mysqli_query($this->connection, $query);
-        if($result !== false){
+        
+	ob_start();
+	var_dump($this);
+	$sqlLog = ob_get_clean();
+	ob_end_clean();
+	file_put_contents('SQL.log', $sqlLog, FILE_APPEND);
+
+	if($result !== false){
             if(!$waitToCommit){
                 mysqli_commit($this->connection);
                 mysqli_autocommit($this->connection, true);
