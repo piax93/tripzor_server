@@ -43,7 +43,7 @@ class Database {
         
 	ob_start();
 	var_dump($this);
-	$sqlLog = ob_get_clean();
+	$sqlLog = ob_get_contents();
 	ob_end_clean();
 	file_put_contents('SQL.log', $sqlLog . PHP_EOL . PHP_EOL, FILE_APPEND);
 
