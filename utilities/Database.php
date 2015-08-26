@@ -45,7 +45,7 @@ class Database {
 	var_dump($this);
 	$sqlLog = ob_get_clean();
 	ob_end_clean();
-	file_put_contents('SQL.log', $sqlLog, FILE_APPEND);
+	file_put_contents('SQL.log', $sqlLog . PHP_EOL . PHP_EOL, FILE_APPEND);
 
 	if($result !== false){
             if(!$waitToCommit){
