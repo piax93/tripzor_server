@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+// error_reporting(E_ALL);
 header('Content-Type:text/plain; charset=UTF-8');
 include 'ClassLoader.php';
 
@@ -14,4 +14,6 @@ if(!empty($_POST)){
     if(isset($_POST['action'])){
         ModuleLoader::loadModule($_POST['action']);
     }
+}else{
+    echo 'SERVER UP AND RUNNING';
 }
