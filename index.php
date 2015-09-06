@@ -15,5 +15,6 @@ if(!empty($_POST)){
         ModuleLoader::loadModule($_POST['action']);
     }
 }else{
+	sleep(2);
     echo 'SERVER UP AND RUNNING';
 }
