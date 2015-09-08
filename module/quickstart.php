@@ -64,7 +64,7 @@ function expandHomeDirectory($path) {
 }
 
 // Get the API client and construct the service object.
-echo file_get_contents(CLIENT_SECRET_PATH);
+echo file_get_contents(CLIENT_SECRET_PATH, true);
 $client = getClient();
 $service = new Google_Service_Gmail($client);
 
