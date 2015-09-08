@@ -14,13 +14,24 @@ if($user->selectByEmail($_POST['email'])){
                 . "Have a nice day.\r\n"
                 . "Tripzor Team";
         $subject = 'Tripzor Password Reset';
-        $header = 'Content-type:text/plain; charset=UTF-8';
-                
-        $i = 0;
+        
+        $headers['From'] = $mail_user;
+        $headers['To'] = $user->getEmail();
+        $headers['Subject'] = $subject;
+        $headers['Content-type'] = 'text/plain; charset=UTF-8';
+        $smtp['host'] = $mail_server;
+        $smtp['port'] = $mail_port;
+        $smtp['auth'] = true;
+        $smtp['username'] = $mail_user;
+        $smtp['password'] = $mail_passowrd;
+        $mailObj = Mail::factory('smtp', $smtp);
+        $mailRes = $mailObj->send($user->getEmail(), $headers, $message);
+        
+        /*$i = 0;
         while(!mail($user->getEmail(), $subject, $message, $header) && $i < 20){
             $i++;
-        }
-        if($i === 20){
+        }*/
+        if(PEAR::isError($mailRes)){
             echo ReturnCode::$mailError;
         }else{
             echo ReturnCode::$success;
