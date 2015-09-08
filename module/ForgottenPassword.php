@@ -6,6 +6,7 @@ if($user->selectByEmail($_POST['email'])){
     $user->setPassword(md5($newPassword));
     if($user->update()){
     	include '/utilities/values/mailCredentials.php';
+    	include 'pear/Mail.php';
         $message = "Dear " . $user->getName() . ",\r\n\r\n"
                 . "Your password has been reset.\r\n"
                 . "Your new password is: $newPassword.\r\n"
