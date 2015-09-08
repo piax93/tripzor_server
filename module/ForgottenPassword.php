@@ -33,6 +33,7 @@ if($user->selectByEmail($_POST['email'])){
         }*/
         if(PEAR::isError($mailRes)){
             echo ReturnCode::$mailError;
+            echo $mailRes->getMessage();
         }else{
             echo ReturnCode::$success;
         }
