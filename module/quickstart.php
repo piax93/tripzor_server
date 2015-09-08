@@ -3,7 +3,7 @@ require 'vendor/autoload.php';
 
 define('APPLICATION_NAME', 'Gmail API Quickstart');
 define('CREDENTIALS_PATH', '~/.credentials/gmail-api-quickstart.json');
-define('CLIENT_SECRET_PATH', './client_secret.json');
+define('CLIENT_SECRET_PATH', 'D:\home\site\client_secret.json');
 define('SCOPES', implode(' ', array(
   Google_Service_Gmail::GMAIL_READONLY)
 ));
