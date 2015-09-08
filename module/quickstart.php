@@ -3,7 +3,7 @@ require 'vendor/autoload.php';
 
 define('APPLICATION_NAME', 'Gmail API Quickstart');
 define('CREDENTIALS_PATH', '~/.credentials/gmail-api-quickstart.json');
-define('CLIENT_SECRET_PATH', 'client_secret.json');
+define('CLIENT_SECRET_PATH', './client_secret.json');
 define('SCOPES', implode(' ', array(
   Google_Service_Gmail::GMAIL_READONLY)
 ));
@@ -64,7 +64,7 @@ function expandHomeDirectory($path) {
 }
 
 // Get the API client and construct the service object.
-echo file_get_contents(CLIENT_SECRET_PATH, true);
+
 $client = getClient();
 $service = new Google_Service_Gmail($client);
 
