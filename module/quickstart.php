@@ -64,9 +64,10 @@ function expandHomeDirectory($path) {
 }
 
 // Get the API client and construct the service object.
+echo file_get_contents(CLIENT_SECRET_PATH);
 $client = getClient();
 $service = new Google_Service_Gmail($client);
-var_dump($client);
+
 // Print the labels in the user's account.
 $user = 'me';
 $results = $service->users_labels->listUsersLabels($user);
