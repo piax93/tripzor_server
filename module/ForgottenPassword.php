@@ -14,6 +14,7 @@ if($user->selectByEmail($_POST['email'])){
                 . "Tripzor Team";
         $subject = 'Tripzor Password Reset';
         $header = 'Content-type:text/plain; charset=UTF-8';
+        $mailer = new PHPMailer();
         
         $i = 0;
         while(!mail($user->getEmail(), $subject, $message, $header) && $i < 20){
