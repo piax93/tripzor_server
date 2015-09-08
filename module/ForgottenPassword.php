@@ -11,9 +11,10 @@ if($user->selectByEmail($_POST['email'])){
                 . "We suggest you to change your password to a more familiar one as soon as possible.\r\n\r\n"
                 . "Have a nice day.\r\n"
                 . "Tripzor Team";
+        $subject = 'Tripzor Password Reset';
+        $header = 'Content-type:text/plain; charset=UTF-8';
         $i = 0;
-        var_dump($user);
-        while(!mail($user->getEmail(), 'Tripzor Password Reset', $message, 'Content-type:text/plain; charset=UTF-8') && $i < 20){
+        while(!mail($user->getEmail(), $subject, $message, $header) && $i < 20){
             $i++;
         }
         if($i === 20){
