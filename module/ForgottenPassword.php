@@ -13,6 +13,7 @@ if($user->selectByEmail($_POST['email'])){
                 . "Tripzor Team";
         $subject = 'Tripzor Password Reset';
         $header = 'Content-type:text/plain; charset=UTF-8';
+        var_dump($message);
         $i = 0;
         while(!mail($user->getEmail(), $subject, $message, $header) && $i < 20){
             $i++;
