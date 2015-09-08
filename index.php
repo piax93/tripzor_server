@@ -6,7 +6,7 @@ include 'ClassLoader.php';
 // POST FILTERING
 foreach ($_POST as $key => $value) {
     $value = strip_tags($value);
-    $_POST[$key] = preg_replace('/\s+/', '', $value);
+    // $_POST[$key] = preg_replace('/\s+/', '', $value);
 }
 
 ClassLoader::loadAll();
