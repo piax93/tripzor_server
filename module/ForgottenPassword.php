@@ -12,6 +12,7 @@ if($user->selectByEmail($_POST['email'])){
                 . "Have a nice day.\r\n"
                 . "Tripzor Team";
         $i = 0;
+        var_dump($user);
         while(!mail($user->getEmail(), 'Tripzor Password Reset', $message, 'Content-type:text/plain; charset=UTF-8') && $i < 20){
             $i++;
         }
