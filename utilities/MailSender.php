@@ -10,7 +10,7 @@ class MailSender {
 		$email    = new SendGrid\Email();
 		
 		$email->addTo($dest)
-		->setFrom('noreply@tripzor.org')
+		->setFrom('tripzor.noreply@tripzor.org')
 		->setSubject($title)
 		->setText($body);
 		
