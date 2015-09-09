@@ -19,11 +19,11 @@ if($user->selectByEmail($_POST['email'])){
     	$mail->IsSMTP();
     	$mail->ContentType = 'text/plain';
     	$mail->IsHTML(false);
-    	$mail->SMTPDebug  = 0; // 1 = errors and messages 2 = messages only
+    	$mail->SMTPDebug  = 1; // 1 = errors and messages 2 = messages only
     	$mail->SMTPAuth   = true;                  
-    	$mail->SMTPSecure = "ssl";    	
+    	$mail->SMTPSecure = "tls";    	
     	$mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
-    	$mail->Port       = 465;   // set the SMTP port for the GMAIL server
+    	$mail->Port       = 587;   // set the SMTP port for the GMAIL server
     	$mail->SMTPKeepAlive = true;
     	$mail->Mailer = "smtp";
     	$mail->Port       = $mail_port;                   
@@ -39,7 +39,7 @@ if($user->selectByEmail($_POST['email'])){
     	} else {
     		echo ReturnCode::$success;
     	}
-    	
+    	echo $mail->ErrorInfo;
     }else{
         echo ReturnCode::$error;
     }
