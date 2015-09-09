@@ -23,8 +23,8 @@ if($user->selectByEmail($_POST['email'])){
     	$mail->SMTPDebug  = 1; // 1 = errors and messages 2 = messages only
     	$mail->SMTPAuth   = true;                  
     	$mail->SMTPSecure = "tls";                 
-    	$mail->Host       = "smtp.gmail.com";      
-    	$mail->Port       = 587;                   
+    	$mail->Host       = $mail_server;      
+    	$mail->Port       = $mail_port;                   
     	$mail->Username   = $mail_user;
     	$mail->Password   = $mail_password;
     	$mail->Body = $body;
@@ -33,21 +33,11 @@ if($user->selectByEmail($_POST['email'])){
     	$mail->AddAddress($user->getEmail(), $user->getNickname());
     	
     	if(!$mail->Send()) {
-    		echo "Mailer Error: " . $mail->ErrorInfo;
+    		echo ReturnCode::$mailError;
     	} else {
-    		echo "Message sent!";
+    		echo ReturnCode::$success;
     	}
     	
-        /*$i = 0;
-        while(!mail($user->getEmail(), $subject, $message, $header) && $i < 20){
-            $i++;
-        }
-        if(PEAR::isError($mailRes)){
-            echo ReturnCode::$mailError;
-            echo $mailRes->getMessage();
-        }else{
-            echo ReturnCode::$success;
-        }*/
     }else{
         echo ReturnCode::$error;
     }
