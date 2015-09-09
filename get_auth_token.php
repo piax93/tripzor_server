@@ -57,7 +57,7 @@ if (!isset($_GET['code'])) {
 	// Use this to interact with an API on the users behalf
 	//    echo $token->accessToken.'<br>';
 	// Use this to get a new access token if the old one expires
-	echo 'Refresh Token: ' . $token->refreshToken;
+	echo 'Refresh Token: ' . $token->getRefreshToken();
 	// Unix timestamp of when the token will expire, and need refreshing
 	//    echo $token->expires;
 }
