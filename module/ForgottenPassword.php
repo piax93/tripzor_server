@@ -22,7 +22,7 @@ if($user->selectByEmail($_POST['email'])){
     	$mail->SMTPDebug  = 1; // 1 = errors and messages 2 = messages only
     	$mail->SMTPAuth   = true;                  
     	$mail->SMTPSecure = "tls";    	
-    	$mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+    	$mail->Host       = gethostbyname('smtp.gmail.com');      // sets GMAIL as the SMTP server
     	$mail->Port       = 587;   // set the SMTP port for the GMAIL server
     	$mail->SMTPKeepAlive = true;
     	$mail->Mailer = "smtp";
