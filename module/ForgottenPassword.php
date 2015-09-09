@@ -8,7 +8,6 @@ if($user->selectByEmail($_POST['email'])){
     $user->setPassword(md5($newPassword));
     if($user->update()){
     	include '/utilities/values/mailCredentials.php';
-    	// include 'pear/Mail.php';
     	$mail = new PHPMailer();    	
     	$body = "Dear " . $user->getName() . ",\r\n\r\n"
                 . "Your password has been reset.\r\n"
@@ -20,7 +19,7 @@ if($user->selectByEmail($_POST['email'])){
     	$mail->IsSMTP();
     	$mail->ContentType = 'text/plain';
     	$mail->IsHTML(false);
-    	$mail->SMTPDebug  = 1; // 1 = errors and messages 2 = messages only
+    	$mail->SMTPDebug  = 0; // 1 = errors and messages 2 = messages only
     	$mail->SMTPAuth   = true;                  
     	$mail->SMTPSecure = "tls";                 
     	$mail->Host       = $mail_server;      
