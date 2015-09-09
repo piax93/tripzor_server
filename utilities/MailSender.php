@@ -14,7 +14,8 @@ class MailSender {
 		->setSubject($title)
 		->setText($body);
 		
-		$sendgrid->send($email);		
+		$response = $sendgrid->send($email);
+		var_dump($response);
 	}
 
 }
