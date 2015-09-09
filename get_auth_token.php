@@ -26,7 +26,7 @@ $clientId = 'RANDOMCHARS-----duv1n2.apps.googleusercontent.com';
 $clientSecret = 'RANDOMCHARS-----lGyjPcRtvP';
 //All details obtained by setting up app in Google developer console.
 //Set Redirect URI in Developer Console as [https/http]://<yourdomain>/<folder>/get_oauth_token.php
-$provider = new Google_Client (
+$provider = new League\OAuth2\Client\Provider\Google (
 		[
 				'clientId' => $clientId,
 				'clientSecret' => $clientSecret,
