@@ -14,16 +14,16 @@
  */
 require 'vendor/autoload.php';
 
-$redirectUri = 'https://tripzor.azurewebsites.net/get_auth_token.php';
+$redirectUri = 'http://tripzor.azurewebsites.net/get_auth_token.php';
 $clientId = '165494771375-mnd868a7b94637vbs1ip092j39nbk5bs.apps.googleusercontent.com';
 $clientSecret = 'suit-EuTnupgND0_ellh7_rI';
 
 session_start();
 //If this automatic URL doesn't work, set it yourself manually
-$redirectUri = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+//$redirectUri = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
 //$redirectUri = 'http://localhost/phpmailer/get_oauth_token.php';
-$clientId = 'RANDOMCHARS-----duv1n2.apps.googleusercontent.com';
-$clientSecret = 'RANDOMCHARS-----lGyjPcRtvP';
+//$clientId = 'RANDOMCHARS-----duv1n2.apps.googleusercontent.com';
+//$clientSecret = 'RANDOMCHARS-----lGyjPcRtvP';
 //All details obtained by setting up app in Google developer console.
 //Set Redirect URI in Developer Console as [https/http]://<yourdomain>/<folder>/get_oauth_token.php
 $provider = new League\OAuth2\Client\Provider\Google (
