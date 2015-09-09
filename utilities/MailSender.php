@@ -15,7 +15,7 @@ class MailSender {
 		->setText($body);
 		
 		$response = $sendgrid->send($email);
-		return $response == 200;
+		return ($response->getCode() == 200);
 	}
 
 }
