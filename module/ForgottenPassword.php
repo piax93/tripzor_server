@@ -8,7 +8,7 @@ if($user->selectByEmail($_POST['email'])){
     $user->setPassword(md5($newPassword));
     if($user->update()){
     	include '/utilities/values/mailCredentials.php';
-    	$mail = new PHPMailer();    	
+    	$mail = new PHPMailer(true);    	
     	$body = "Dear " . $user->getName() . ",\r\n\r\n"
                 . "Your password has been reset.\r\n"
                 . "Your new password is: $newPassword.\r\n"
@@ -21,8 +21,11 @@ if($user->selectByEmail($_POST['email'])){
     	$mail->IsHTML(false);
     	$mail->SMTPDebug  = 0; // 1 = errors and messages 2 = messages only
     	$mail->SMTPAuth   = true;                  
-    	$mail->SMTPSecure = "tls";                 
-    	$mail->Host       = $mail_server;      
+    	$mail->SMTPSecure = "ssl";    	
+    	$mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+    	$mail->Port       = 465;   // set the SMTP port for the GMAIL server
+    	$mail->SMTPKeepAlive = true;
+    	$mail->Mailer = "smtp";
     	$mail->Port       = $mail_port;                   
     	$mail->Username   = $mail_user;
     	$mail->Password   = $mail_password;
