@@ -46,7 +46,7 @@ if (!isset($_GET['code'])) {
 	unset($_SESSION['oauth2state']);
 	exit('Invalid state');
 } else {
-	$provider->accessType = 'offline';
+	$provider->setAccessType('offline');
 	// Try to get an access token (using the authorization code grant)
 	$token = $provider->getAccessToken(
 			'authorization_code',
