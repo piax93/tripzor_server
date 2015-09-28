@@ -15,7 +15,7 @@ class User extends DbEntity{
     private $birthday = '0000-00-00';
     
     public function login($password){
-        $encr = md5($password);
+        $encr = Database::encryptString($password);
         return $this->password === $encr;
     }
     

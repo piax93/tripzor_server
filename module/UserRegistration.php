@@ -5,7 +5,7 @@ $res = $user->selectByEmail($_POST['email']);
 if($res !== false){
     echo ReturnCode::$userPresent;
 }else{
-    $_POST['password'] = md5($_POST['password']);
+    $_POST['password'] = Database::encryptString($_POST['password']);
     $user->fillByAssoc($_POST);
     $res = $user->insert();
     if($res !== false){

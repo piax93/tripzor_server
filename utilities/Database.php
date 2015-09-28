@@ -90,5 +90,14 @@ class Database {
         $query .= $where === '' ? '' : ' WHERE ' . $where;
         return $this->execQuery($query);
     }
+	
+	/**
+	 * Encrypts string
+	 * @param string $string String to encrypt
+	 */
+	public static function encryptString($string){
+		include_once 'values/salt.php';
+		return crypt($string, $salt);
+	}
     
 }

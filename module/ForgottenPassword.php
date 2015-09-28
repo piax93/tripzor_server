@@ -4,7 +4,7 @@ $_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $user = new User();
 if($user->selectByEmail($_POST['email'])){
     $newPassword = uniqid();
-    $user->setPassword(md5($newPassword));
+    $user->setPassword(Database::encryptString($newPassword));
     if($user->update()){
     	$body = "Dear " . $user->getName() . ",\r\n\r\n"
                 . "Your password has been reset.\r\n"
