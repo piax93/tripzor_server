@@ -6,13 +6,13 @@ if($user->selectByEmail($_SESSION['user'])){
 	$db = Database::getDbInstance();
 	$trips = $db->execQuery($query);
 	foreach ($trips as $trip){
-		echo '*' . $trip['tripId'] . ':' . $trip['name'];
+		echo '*' . $trip['tripId'] . ':' . $trip['name'] . PHP_EOL;
 	}
 	$query  = 'SELECT t.tripId, t.name FROM participant p, trip t
 					WHERE p.tripId = t.tripId and p.userId = ' . $user->getUserId();
 	$trips = $db->execQuery($query);
 	foreach ($trips as $trip){
-		echo $trip['tripId'] . ':' . $trip['name'];
+		echo $trip['tripId'] . ':' . $trip['name'] . PHP_EOL;
 	}
 }else{
 	ReturnCode::$userNotFound;
