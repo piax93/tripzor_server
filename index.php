@@ -9,9 +9,9 @@ foreach ($_POST as $key => $value) {
     // $_POST[$key] = preg_replace('/\s+/', '', $value);
 }
 
+ClassLoader::loadAll();
 echo Database::sessionEncrypt('piax93@hotmail.com');
 
-ClassLoader::loadAll();
 if(!empty($_POST)){
     if(isset($_POST['action'])){
         ModuleLoader::loadModule($_POST['action']);
