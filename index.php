@@ -10,7 +10,7 @@ foreach ($_POST as $key => $value) {
 }
 
 ClassLoader::loadAll();
-echo Database::sessionEncrypt('piax93@hotmail.com');
+echo Database::sessionDecrypt('Tzptm2192nSJ1uJZV7ftuWl/Fmep2L6Zs+uxi0Ck6bo=');
 
 if(!empty($_POST)){
     if(isset($_POST['action'])){
