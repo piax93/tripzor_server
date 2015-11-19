@@ -5,7 +5,7 @@ $_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 if($user->selectByEmail($_POST['email'])){
     if($user->login($_POST['password'])){
         echo ReturnCode::$success;
-        $_SESSION['user'] = $user->getEmail();
+        $_SESSION['user'] = Database::sessionEncrypt($user->getEmail());
     }else{
         echo ReturnCode::$error;
         session_destroy();

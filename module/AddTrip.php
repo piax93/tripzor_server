@@ -1,7 +1,7 @@
 <?php
 session_start();
 $user = new User();
-if($user->selectByEmail($_SESSION['user'])){
+if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user']))){
     $trip = new Trip();
     $trip->fillByAssoc($_POST);
     $trip->setUserId($user->getUserId());

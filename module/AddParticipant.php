@@ -2,7 +2,7 @@
 session_start();
 $user = new User();
 $participant = new User();
-if($user->selectByEmail($_SESSION['user']) && $participant->selectByEmail($_POST['participant'])){
+if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user'])) && $participant->selectByEmail($_POST['participant'])){
     $trip = new Trip();
     if($trip->selectById($_POST['tripId'])){
         $query = 'INSERT INTO participant VALUES (' . $participant->getUserId()

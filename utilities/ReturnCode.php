@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class of return values
+ */
+
 Class ReturnCode {
     
     public static $userNotFound = 'USER_NOT_FOUND';
