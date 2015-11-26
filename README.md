@@ -1,1 +1,1 @@
-Server-side for a trip management app
+#Server-side for [Tripzor](https://github.com/piax93/tripzor_client)
