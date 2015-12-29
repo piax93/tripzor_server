@@ -1,5 +1,4 @@
 <?php
-// error_reporting(E_ALL);
 header('Content-Type:text/plain; charset=UTF-8');
 include 'ClassLoader.php';
 
@@ -18,5 +17,5 @@ if(!empty($_POST)){
     }
 }else{
 	sleep(1);
-    echo 'SERVER UP AND RUNNING';
+	echo 'SERVER UP AND RUNNING';
 }
