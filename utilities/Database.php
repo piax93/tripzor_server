@@ -113,7 +113,8 @@ class Database {
     	$type = '';
     	$params = array();
     	foreach ($fields as $value) {
-    		$type .= substr(gettype($value), 0, 1);
+    		if($value === null) $type .= 's';
+    		else $type .= substr(gettype($value), 0, 1);
     	}
     	$params[] = & $type;
     	for ($i = 0; $i < count($fields); $i++) {

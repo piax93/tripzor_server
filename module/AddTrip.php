@@ -7,7 +7,6 @@ if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user']))){
     $trip->setUserId($user->getUserId());
     $trip->setNPart(1);
     $res = $trip->insert();
-    var_dump($trip);
     if($res){
         echo ReturnCode::$success;
     }else{
