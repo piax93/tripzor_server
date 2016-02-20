@@ -21,7 +21,7 @@ class DbEntity {
     }
     
     public function selectById($idName, $idValue, $tableName){
-        $res = $this->database->execSelectQuery('*', $tableName, "$idName = '$idValue'");
+        $res = $this->database->execSelectQuery('*', $tableName, array($idName => $idValue));
         if($res !== false){
             $this->fillByAssoc($res[0]);
             return true;
@@ -30,8 +30,8 @@ class DbEntity {
     }
     
     public function delete($idName, $idValue, $tableName){
-        $query = "DELETE FROM $tableName WHERE $idName = '$idValue'";
-        return $this->database->execQuery($query, false);
+        $query = "DELETE FROM $tableName WHERE $idName = ?";
+        return $this->database->queryFromPreparedStatement($query, array($idValue));
     }
     
 }

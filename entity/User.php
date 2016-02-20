@@ -21,15 +21,17 @@ class User extends DbEntity{
     
     public function update(){
         $query = "UPDATE user
-                SET email = '$this->email' ,
-                    nickname = '$this->nickname' ,
-                    password = '$this->password' ,
-                    cellPhone = '$this->cellPhone' ,
-                    name = '$this->name' ,
-                    surname = '$this->surname' ,
-                    birthday = '$this->birthday'
-                WHERE userId = '$this->userId'";
-        return $this->database->execQuery($query, false);
+                SET email = ? ,
+                    nickname = ? ,
+                    password = ? ,
+                    cellPhone = ? ,
+                    name = ? ,
+                    surname = ? ,
+                    birthday = ?
+                WHERE userId = ?";
+        return $this->database->queryFromPreparedStatement($query, 
+        		array($this->email, $this->nickname, $this->password, $this->cellPhone, 
+        			$this->name, $this->surname, $this->birthday, $this->userId));
     }
     
     public function insert(){
@@ -38,9 +40,10 @@ class User extends DbEntity{
         }
         $this->checkNickname();
         $query = "INSERT INTO user(email, nickname, password, cellPhone, name, surname, birthday)
-                VALUES ('$this->email', '$this->nickname', '$this->password',
-                     '$this->cellPhone', '$this->name', '$this->surname', '$this->birthday')";
-        return $this->database->execQuery($query, false); 
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
+        return $this->database->queryFromPreparedStatement($query, 
+        		array($this->email, $this->nickname, $this->password, $this->cellPhone, 
+        			$this->name, $this->surname, $this->birthday));
     }
             
     public function selectById($idValue) {

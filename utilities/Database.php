@@ -79,26 +79,64 @@ class Database {
      * @param string $table Table to query
      * @param string $where Where conditions
      */
-    public function execSelectQuery($fields, $table, $where = ''){
-        if(is_array($fields)){
+    public function execSelectQuery($fields, $table, $where = array()){
+    	if(!is_array($where)) return false;
+    	if(is_array($fields)){
             $select = implode(', ', $fields);
         }else{
             $select = $fields;
         }        
-        $query = 'SELECT ' . $select .
-                ' FROM ' . $table;
-        $query .= $where === '' ? '' : ' WHERE ' . $where;
-        return $this->execQuery($query);
+        $query = 'SELECT ' . $select . ' FROM ' . $table;
+        $fields = array();
+        if(count($where) > 0) {
+        	$query .= ' WHERE ';
+        	$i = 0;
+        	foreach ($where as $key => $value) {
+        		$query .= $key . '= ?';
+        		if($i !== count($where)-1) $query .= ' AND ';
+        		$fields[$i] = $value;
+        		$i++;
+        	}        	
+        }        
+        return $this->queryFromPreparedStatement($query, $fields, true);
     }
     
     /**
+     * Execute prepared statement
      * @param string $query
      * @param array $fields
      */
-    public function prepareStatement($query, $fields){
-    	if(!is_arr)
- 		
+    public function queryFromPreparedStatement($query, $fields, $hasresult = false){
+    	if(!is_array($fields)) return false;
     	$stm = $this->connection->prepare($query);
+    	if($stm == false) return false;
+    	$type = '';
+    	$params = array();
+    	foreach ($fields as $value) {
+    		$type .= substr(gettype($value), 0, 1);
+    	}
+    	$params[] = & $type;
+    	for ($i = 0; $i < count($fields); $i++) {
+    		$params[] = & $fields[$i];
+    	}
+    	call_user_func_array(array($stm, 'bind_param'), $params);
+    	$r = $stm->execute();
+    	if($hasresult && $r){
+    		$res = $stm->get_result();
+    		$returnArray = array(); $i = 0;
+            if($res !== NULL){
+                while($returnArray[$i] = $res->fetch_assoc()) {
+                    $i++;
+                }
+                array_pop($returnArray);
+                if(count($returnArray) != 0){
+                    return $returnArray;
+                }
+            }
+    	}else{
+    		return $r;
+    	}
+    	return false;
     }
 	
 	/**
