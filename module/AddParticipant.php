@@ -8,7 +8,7 @@ if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user'])) && $partici
     	$query = 'INSERT INTO participant VALUES (?, ?)';
         $db = Database::getDbInstance();
         $trip->addParticipant();
-        if($db->queryFromPreparedStatement($query, array($participant->getUserId(), $trip->getTripId())) 
+        if($db->queryFromPreparedStatement($query, array($participant->getUserId(), $trip->getTripId()), false, true) 
         		&& $trip->update()){
             echo ReturnCode::$success;
         }else{

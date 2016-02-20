@@ -106,10 +106,11 @@ class Database {
      * @param string $query
      * @param array $fields
      */
-    public function queryFromPreparedStatement($query, $fields, $hasresult = false){
+    public function queryFromPreparedStatement($query, $fields, $hasresult = false, $waitToCommit = false){
     	if(!is_array($fields)) return false;
     	$stm = $this->connection->prepare($query);
     	if($stm == false) return false;
+    	$this->connection->autocommit(false);
     	$type = '';
     	$params = array();
     	foreach ($fields as $value) {
@@ -122,6 +123,15 @@ class Database {
     	}
     	call_user_func_array(array($stm, 'bind_param'), $params);
     	$r = $stm->execute();
+    	if($r !== false){
+    		if(!$waitToCommit){
+    			$this->connection->commit();
+    			$this->connection->autocommit(true);
+    		}
+    	}else{
+    		$this->connection->rollback();
+    		$this->connection->autocommit(true);
+    	}
     	if($hasresult && $r){
     		$res = $stm->get_result();
     		$returnArray = array(); $i = 0;
