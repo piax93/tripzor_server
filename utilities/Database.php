@@ -11,8 +11,8 @@ class Database {
     
     private function __construct() {
         include 'values/DBcredentials.php';
-        $this->connection = mysqli_connect($address, $user, $password, $databaseName);
-        if ($this->connection === FALSE) {
+        $this->connection = new mysqli($address, $user, $password, $databaseName);
+        if ($this->connection->connect_error) {
             die('Error connecting to DB');
         }
     }
@@ -37,29 +37,29 @@ class Database {
      *      true in case of success with nothing to return
      */
     public function execQuery($query, $hasResult = true, $waitToCommit = false){
-        mysqli_autocommit($this->connection, false);
+    	$this->connection->autocommit(false);
         // mysqli_begin_transaction($this->connection);
-        $result = mysqli_query($this->connection, $query);
+        $result = $this->connection->query($query);
         
-	ob_start();
-	var_dump($this);
-	$sqlLog = ob_get_contents();
-	ob_end_clean();
-	file_put_contents('SQL.log', $sqlLog . PHP_EOL . PHP_EOL, FILE_APPEND);
-
-	if($result !== false){
+		ob_start();
+		var_dump($this);
+		$sqlLog = ob_get_contents();
+		ob_end_clean();
+		file_put_contents('SQL.log', $sqlLog . PHP_EOL . PHP_EOL, FILE_APPEND);
+	
+		if($result !== false){
             if(!$waitToCommit){
-                mysqli_commit($this->connection);
-                mysqli_autocommit($this->connection, true);
+                $this->connection->commit();
+                $this->connection->autocommit(true);
             }
         }else{
-            mysqli_rollback($this->connection);
-            mysqli_autocommit($this->connection, true);
+            $this->connection->rollback();
+            $this->connection->autocommit(true);
         }
         if($hasResult){
             $returnArray = array(); $i = 0;
             if($result !== NULL){
-                while($returnArray[$i] = mysqli_fetch_assoc($result)) {
+                while($returnArray[$i] = $result->fetch_assoc()) {
                     $i++;
                 }
                 array_pop($returnArray);
@@ -67,12 +67,12 @@ class Database {
                     return $returnArray;
                 }
             }
-	}else{
-            return $result;
+		}else{
+	    	return $result;
+		}
+	    return false;
 	}
-        return false;
-    }
-    
+	    
     /**
      * Build and execute a select query
      * @param array $fields Fields to select
@@ -89,6 +89,16 @@ class Database {
                 ' FROM ' . $table;
         $query .= $where === '' ? '' : ' WHERE ' . $where;
         return $this->execQuery($query);
+    }
+    
+    /**
+     * @param string $query
+     * @param array $fields
+     */
+    public function prepareStatement($query, $fields){
+    	if(!is_arr)
+ 		
+    	$stm = $this->connection->prepare($query);
     }
 	
 	/**

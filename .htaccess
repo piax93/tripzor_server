@@ -5,3 +5,7 @@ deny from all
 <Files "*.log">
 deny from all
 </Files>
+
+<Files "index.php">
+allow from all
+</Files>
