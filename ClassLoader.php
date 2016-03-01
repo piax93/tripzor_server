@@ -11,7 +11,7 @@ class ClassLoader {
         foreach (self::$folders as $folder) {
             $classes = glob($folder . '/*.php');
             foreach ($classes as $class) {
-                include_once $class;
+                require $class;
             }
         }
     }
@@ -19,7 +19,7 @@ class ClassLoader {
     public static function loadClass($classname, $path){
         $target = $path . '/' . $classname . '.php';
         if(file_exists($target)){
-            include_once $target;
+            require $target;
         }
     }
     
