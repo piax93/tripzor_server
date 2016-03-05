@@ -8,8 +8,10 @@ if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user']))){
     $trip->setNPart(1);
     $res = $trip->insert();
     if($res){
+    	Logger::var_dump_log('AddTrip', $trip->getName());
         echo ReturnCode::$success;
     }else{
+    	Logger::log('AddTrip', 'Failed');
         echo ReturnCode::$error;
     }
 }else{

@@ -2,6 +2,7 @@
 session_start();
 $user = new User();
 if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user']))){
+	Logger::log('ListTrips', $user->getEmail());
 	$query = 'SELECT tripId, name FROM trip WHERE userId = ?';
 	$db = Database::getDbInstance();
 	$trips = $db->queryFromPreparedStatement($query, array($user->getUserId()), true);
@@ -14,5 +15,6 @@ if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user']))){
 		echo $trip['tripId'] . ':' . $trip['name'] . PHP_EOL;
 	}
 }else{
-	ReturnCode::$userNotFound;
+	Logger::log('ListTrips', 'User not found');
+	echo ReturnCode::$userNotFound;
 }

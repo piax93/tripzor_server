@@ -21,6 +21,7 @@ class DbEntity {
     }
     
     public function selectById($idName, $idValue, $tableName){
+    	if($idValue == '') return false;
         $res = $this->database->execSelectQuery('*', $tableName, array($idName => $idValue));
         if($res !== false){
             $this->fillByAssoc($res[0]);
