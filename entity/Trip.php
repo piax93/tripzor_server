@@ -40,6 +40,12 @@ class Trip extends DbEntity {
         return parent::selectById('tripId', $idValue, 'trip');
     }
     
+    public function asArray(){
+    	$res = array('tripid' => $this->tripId, 'name' => $this->name, 'place' => $this->place,
+    			'start' => $this->startDate, 'end' => $this->endDate );
+    	return $res;
+    }
+    
     public function addParticipant(){$this->nPart++;}
     public function setTripId($tripId) {$this->tripId = $tripId;}
     public function setName($name) {$this->name = $name;}
