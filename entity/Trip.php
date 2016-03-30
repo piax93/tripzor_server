@@ -36,6 +36,10 @@ class Trip extends DbEntity {
         return parent::delete('tripId', $this->tripId, 'trip');
     }
     
+	public function isOwned($userId) {
+		return $userId == $this->userId;
+	}
+    
     public function selectById($idValue) {
         return parent::selectById('tripId', $idValue, 'trip');
     }
