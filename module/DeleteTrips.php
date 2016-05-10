@@ -8,7 +8,8 @@ if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user']))){
 	foreach ($ids as $id) {
 		$trip->selectById($id);
 		if($trip->isOwned($user->getUserId())) $res &= $trip->delete();
-		else echo '_trip ' . $trip->getName() . PHP_EOL;
+		else $res &= $trip->removeParticipant($user->getUserId());
+		if(!$res) break;
 	}
 	if($res) echo ReturnCode::$success;
 	else echo ReturnCode::$error;	

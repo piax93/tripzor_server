@@ -50,7 +50,20 @@ class Trip extends DbEntity {
     	return $res;
     }
     
-    public function addParticipant(){$this->nPart++;}
+    public function addParticipant($userId){
+    	$query = 'INSERT INTO participant VALUES (?, ?)';
+    	$this->nPart++;
+    	return $this->database->queryFromPreparedStatement($query, array($userId, $this->tripId), false, true) 
+    			&& $this->update();
+    }
+    
+    public function removeParticipant($userId) {
+    	$query = 'DELETE FROM participant WHERE userId = ? AND tripId = ?';
+    	$this->nPart--;
+    	return $this->database->queryFromPreparedStatement($query, array($userId, $this->tripId), false, true) 
+    			&& $this->update();
+    }
+    
     public function setTripId($tripId) {$this->tripId = $tripId;}
     public function setName($name) {$this->name = $name;}
     public function setNPart($nPart) {$this->nPart = $nPart;}
