@@ -75,7 +75,7 @@ class User extends DbEntity{
     public function setBirthday($birthday) {$this->birthday = $birthday;}    
     public function getUserId() {return $this->userId;}
     public function getEmail() {return $this->email;}
-    public function getNickname() {return $this->email;}
+    public function getNickname() {return $this->nickname;}
     public function getPassword() {return $this->password;}
     public function getCellPhone() {return $this->cellPhone;}
     public function getName() {return $this->name;}
