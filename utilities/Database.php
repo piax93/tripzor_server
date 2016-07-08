@@ -24,6 +24,7 @@ class Database {
     public static function getDbInstance(){
         if(self::$database === NULL){
             self::$database = new Database();
+            self::$database->execQuery('SET NAMES utf8;', false);
         }
         return self::$database;
     }
@@ -157,8 +158,7 @@ class Database {
 	public static function encryptString($string){
 		require 'values/salt.php';
 		return crypt($string, $salt);
-	}
-	
+	}	
 	
 	public static function sessionEncrypt($string){
 		require 'values/salt.php';

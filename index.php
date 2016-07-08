@@ -1,15 +1,16 @@
 <?php
 header('Content-Type:text/plain; charset=UTF-8');
+error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
+
 include 'ClassLoader.php';
+
+ClassLoader::loadAll();
 
 // POST FILTERING
 foreach ($_POST as $key => $value) {
-    $value = strip_tags($value);
-    // $value = preg_replace('/\s+/', '', $value);
-    $_POST[$key] = $value;
+	$value = strip_tags($value);
+	$_POST[$key] = $value;
 }
-
-ClassLoader::loadAll();
 
 if(!empty($_POST)){
     if(isset($_POST['action'])){
