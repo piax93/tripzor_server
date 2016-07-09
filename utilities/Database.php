@@ -6,7 +6,7 @@
 class Database {
     
     private static $database = null;
-    
+    private static $log = false;
     private $connection;
     
     private function __construct() {
@@ -42,12 +42,14 @@ class Database {
         // mysqli_begin_transaction($this->connection);
         $result = $this->connection->query($query);
         
-		ob_start();
-		var_dump($this);
-		$sqlLog = ob_get_contents();
-		ob_end_clean();
-		file_put_contents('SQL.log', $sqlLog . PHP_EOL . PHP_EOL, FILE_APPEND);
-	
+        if(self::$log){
+			ob_start();
+			var_dump($this);
+			$sqlLog = ob_get_contents();
+			ob_end_clean();
+			file_put_contents('SQL.log', $sqlLog . PHP_EOL . PHP_EOL, FILE_APPEND);
+        }
+        
 		if($result !== false){
             if(!$waitToCommit){
                 $this->connection->commit();
@@ -124,6 +126,15 @@ class Database {
     	}
     	call_user_func_array(array($stm, 'bind_param'), $params);
     	$r = $stm->execute();
+    	
+    	if(self::$log){
+    		ob_start();
+    		var_dump($this);
+    		$sqlLog = ob_get_contents();
+    		ob_end_clean();
+    		file_put_contents('SQL.log', $sqlLog . PHP_EOL . PHP_EOL, FILE_APPEND);
+    	}
+    	
     	if($r !== false){
     		if(!$waitToCommit){
     			$this->connection->commit();

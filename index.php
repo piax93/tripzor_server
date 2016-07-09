@@ -5,6 +5,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
 include 'ClassLoader.php';
 
 ClassLoader::loadAll();
+Logger::log('index.php', $_SERVER['HTTP_USER_AGENT']);
 
 // POST FILTERING
 foreach ($_POST as $key => $value) {
