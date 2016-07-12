@@ -2,6 +2,8 @@
 header('Content-Type:text/plain; charset=UTF-8');
 error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
 
+define('MEDIA_FOLDER', 'media/');
+
 include 'ClassLoader.php';
 
 ClassLoader::loadAll();
