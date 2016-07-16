@@ -3,7 +3,10 @@
 session_start ();
 $user = new User ();
 if ($user->selectByEmail ( Database::sessionDecrypt ( $_SESSION ['user'] ) )) {
+	
 	Logger::var_dump_log('UploadMedia', $_FILES);
+	Logger::var_dump_log('UploadMedia', $_REQUEST);
+	
 	$userdir = MEDIA_FOLDER . $user->getUserId ();
 	if (! is_dir ( $userdir )) {
 		mkdir ( $userdir );
