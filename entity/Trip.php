@@ -52,10 +52,10 @@ class Trip extends DbEntity {
     }
     
     public function getParticipants(){
-    	$tmp = $this->database->execSelectQuery('userId', 'participant', array('tripId' => $this->tripId));
-    	$res = array($this->userId);
-    	if(is_array($tmp)) foreach ($tmp as $u) array_push($res, $u['userId']);
-    	return $res;
+    	$query = 'SELECT DISTINCT u.userId, nickname, name, surname 
+    				FROM participant p, user u 
+					WHERE (u.userId = p.userId OR u.userId = ?) AND p.tripId = ?';
+    	return $this->database->queryFromPreparedStatement($query, array($this->userId, $this->tripId), true);
     }
     
     public function addParticipant($userId){
