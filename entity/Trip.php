@@ -46,7 +46,15 @@ class Trip extends DbEntity {
     
     public function asArray(){
     	$res = array('tripid' => $this->tripId, 'name' => $this->name, 'place' => $this->place,
-    			'start' => $this->startDate, 'end' => $this->endDate );
+    			'start' => $this->startDate, 'end' => $this->endDate, 
+    			'participants' => $this->getParticipants() );
+    	return $res;
+    }
+    
+    public function getParticipants(){
+    	$tmp = $this->database->execSelectQuery('userId', 'participant', array('tripId' => $this->tripId));
+    	$res = array($this->userId);
+    	if(is_array($tmp)) foreach ($tmp as $u) array_push($res, $u['userId']);
     	return $res;
     }
     
