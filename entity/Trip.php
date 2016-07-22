@@ -46,16 +46,17 @@ class Trip extends DbEntity {
     
     public function asArray(){
     	$res = array('tripid' => $this->tripId, 'name' => $this->name, 'place' => $this->place,
-    			'start' => $this->startDate, 'end' => $this->endDate, 
-    			'participants' => $this->getParticipants() );
+    			'start' => $this->startDate, 'end' => $this->endDate, 'owner' => $this->userId, 
+    			'participants' => $this->getParticipants());
     	return $res;
     }
     
     public function getParticipants(){
     	$query = 'SELECT DISTINCT u.userId, nickname, name, surname 
     				FROM participant p, user u 
-					WHERE (u.userId = p.userId OR u.userId = ?) AND p.tripId = ?';
-    	return $this->database->queryFromPreparedStatement($query, array($this->userId, $this->tripId), true);
+					WHERE (u.userId = p.userId AND p.tripId = ?) OR u.userId = ?
+    				ORDER BY name, surname';
+    	return $this->database->queryFromPreparedStatement($query, array($this->tripId, $this->userId), true);
     }
     
     public function addParticipant($userId){
