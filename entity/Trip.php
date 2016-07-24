@@ -52,7 +52,7 @@ class Trip extends DbEntity {
     }
     
     public function getParticipants(){
-    	$query = 'SELECT DISTINCT u.userId, nickname, name, surname 
+    	$query = 'SELECT DISTINCT u.userId, nickname, name, surname, email 
     				FROM participant p, user u 
 					WHERE (u.userId = p.userId AND p.tripId = ?) OR u.userId = ?
     				ORDER BY name, surname';
