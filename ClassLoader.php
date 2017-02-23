@@ -29,8 +29,15 @@ class ClassLoader {
     
     public static function loadModule($module){
     	ClassLoader::loadClass($module, 'module');
-    	$res = ReturnCode::$error;
-    	if(class_exists($module) && in_array('Module', class_implements($module))) $res = $module::run();
+    	$res = array('result' => ReturnCode::$error);
+    	if(class_exists($module) && in_array('Module', class_implements($module))) { 
+    		$tmp = $module::run();
+    		if(is_string($tmp)) $res['result'] = $tmp; 
+    		else {
+    			$res['result'] = ReturnCode::$success;
+    			$res['data'] = $tmp;
+    		}
+    	}
     	echo json_encode($res);
     }
     

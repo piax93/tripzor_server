@@ -13,6 +13,7 @@ class GetProfilePicture implements Module {
 				exit(0);
 			}
 		}
+		return ReturnCode::$error;
 	}
 	
 }

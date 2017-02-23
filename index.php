@@ -21,5 +21,5 @@ if(!empty($_POST)){
     }
 }else{
 	sleep(1);
-	echo json_encode('SERVER UP AND RUNNING');
+	echo json_encode(array('result' => 'SERVER UP AND RUNNING'));
 }
