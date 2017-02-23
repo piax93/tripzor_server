@@ -1,26 +1,28 @@
 <?php
-session_start ();
-$user = new User ();
-if ($user->selectByEmail ( Database::sessionDecrypt ( $_SESSION ['user'] ) )) {
-	$trip = new Trip ();
-	$trip->fillByAssoc ( $_POST );
-	$trip->setUserId ( $user->getUserId () );
-	$trip->setNPart ( 1 );
+
+class AddTrip implements Module {
 	
-	if (Util::compareDate ( $trip->getStartDate (), $trip->getEndDate () )) {
-		$res = $trip->insert ();
-		if ($res) {
-			Logger::var_dump_log ( 'AddTrip', $trip->getName () );
-			echo ReturnCode::$success;
-		} else {
-			Logger::log ( 'AddTrip', 'Failed' );
-			echo ReturnCode::$error;
+	public static function run(){
+		session_start();
+		$user = new User();
+		if ($user->selectByEmail(Database::sessionDecrypt($_SESSION['user']))) {
+			$trip = new Trip();
+			$trip->fillByAssoc($_POST);
+			$trip->setUserId($user->getUserId());
+			$trip->setNPart(1);
+			if (Util::compareDate($trip->getStartDate(), $trip->getEndDate())) {
+				$res = $trip->insert();
+				if ($res) {
+					Logger::log('AddTrip', $trip->getName());
+					return ReturnCode::$success;
+				} else {
+					Logger::log('AddTrip', 'Failed');
+					return ReturnCode::$error;
+				}
+			}
+			return ReturnCode::$error;
 		}
-	} else {
-		echo ReturnCode::$error;
+		return ReturnCode::$userNotFound;
 	}
-} else {
-	echo ReturnCode::$userNotFound;
+	
 }
-
-

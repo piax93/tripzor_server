@@ -1,5 +1,9 @@
 <?php
 
+interface Module {
+	public static function run();
+}
+
 /**
  * Class Loader
  */
@@ -21,6 +25,13 @@ class ClassLoader {
         if(file_exists($target)){
             require $target;
         }
+    }
+    
+    public static function loadModule($module){
+    	ClassLoader::loadClass($module, 'module');
+    	$res = ReturnCode::$error;
+    	if(class_exists($module) && in_array('Module', class_implements($module))) $res = $module::run();
+    	echo json_encode($res);
     }
     
 }

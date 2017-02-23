@@ -1,24 +1,22 @@
 <?php
 
-session_start();
-$user = new User();
-if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user']))){
-	if($_POST['update'] == 'true'){
-		$user->setNickname($_POST['nick']);
-		$user->setCellPhone($_POST['phone']);
-		$user->setName($_POST['name']);
-		$user->setSurname($_POST['surname']);
-		if($user->update()){
-			echo ReturnCode::$success;
-		}else{
-			echo ReturnCode::$error;
+class UserInfo implements Module {
+	
+	public static function run() {
+		session_start();
+		$user = new User();
+		if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user']))){
+			if($_POST['update'] == 'true'){
+				$user->setNickname($_POST['nick']);
+				$user->setCellPhone($_POST['phone']);
+				$user->setName($_POST['name']);
+				$user->setSurname($_POST['surname']);
+				if($user->update()) return ReturnCode::$success;
+				return ReturnCode::$error;
+			} 
+			return array($user->getNickname(), $user->getName(), $user->getSurname(), $user->getCellPhone());
 		}
-	}else{	
-		echo $user->getNickname() . PHP_EOL;
-		echo $user->getName() . PHP_EOL;
-		echo $user->getSurname() . PHP_EOL;
-		echo $user->getCellPhone();
+		return ReturnCode::$userNotFound;
 	}
-}else{
-	echo ReturnCode::$userNotFound;
+	
 }
