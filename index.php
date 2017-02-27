@@ -10,16 +10,16 @@ ClassLoader::loadAll();
 
 // POST FILTERING
 foreach ($_POST as $key => $value) {
-	$value = strip_tags($value);
-	// more to come
-	$_POST[$key] = $value;
+  $value = strip_tags($value);
+  // more to come
+  $_POST[$key] = $value;
 }
 
 if(!empty($_POST)){
-    if(isset($_POST['action'])){
-        ClassLoader::loadModule($_POST['action']);
-    }
+  if(isset($_POST['action'])){
+    ClassLoader::loadModule($_POST['action']);
+  }
 }else{
-	sleep(1);
-	echo json_encode(array('result' => 'SERVER UP AND RUNNING'));
+  sleep(1);
+  echo json_encode(array('result' => 'SERVER UP AND RUNNING'));
 }
