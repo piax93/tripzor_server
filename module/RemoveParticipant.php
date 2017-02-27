@@ -1,7 +1,7 @@
 <?php
 
 class RemoveParticipant implements Module {
-	
+
 	public static function run(){
 		session_start();
 		$user = new User();
@@ -16,5 +16,5 @@ class RemoveParticipant implements Module {
 		}
 		return ReturnCode::$userNotFound;
 	}
-	
+
 }

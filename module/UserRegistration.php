@@ -1,7 +1,7 @@
 <?php
 
 class UserRegistration implements Module {
-	
+
 	public static function run(){
 		$user = new User();
 		$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
@@ -21,5 +21,5 @@ class UserRegistration implements Module {
 			return ReturnCode::$error;
 		}
 	}
-	
+
 }

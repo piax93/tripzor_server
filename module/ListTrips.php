@@ -1,7 +1,7 @@
 <?php
 
 class ListTrips implements Module {
-	
+
 	public static function run(){
 		session_start();
 		$user = new User();
@@ -17,5 +17,5 @@ class ListTrips implements Module {
 		Logger::log('ListTrips', 'User not found');
 		return ReturnCode::$userNotFound;
 	}
-	
+
 }

@@ -1,7 +1,7 @@
 <?php
 
 class Trip extends DbEntity {
-    
+
     private $tripId = null;
     private $name;
     private $nPart = 0;
@@ -9,70 +9,70 @@ class Trip extends DbEntity {
     private $startDate;
     private $endDate;
     private $userId; //creator
-    
+
     public function update(){
         $query = "UPDATE trip SET
-                    name = ?, 
-                    nPart = ?, 
-                    place = ?, 
-                    startDate = ?, 
-                    endDate = ?, 
+                    name = ?,
+                    nPart = ?,
+                    place = ?,
+                    startDate = ?,
+                    endDate = ?,
                     userId = ?
-                  WHERE tripId = ?";        
-        return $this->database->queryFromPreparedStatement($query, 
-        		array($this->name, $this->nPart, $this->place, $this->startDate, 
-        				$this->endDate, $this->userId, $this->tripId));
+                  WHERE tripId = ?";
+        return $this->database->queryFromPreparedStatement($query,
+            array($this->name, $this->nPart, $this->place, $this->startDate,
+                  $this->endDate, $this->userId, $this->tripId));
     }
-    
+
     public function insert() {
         if($this->tripId !== null) return false;
         $query = "INSERT INTO trip(name, nPart, place, startDate, endDate, userId) VALUES (?, ?, ?, ?, ?, ?)";
-        return $this->database->queryFromPreparedStatement($query, 
-        		array($this->name, $this->nPart, $this->place, $this->startDate, 
-        				$this->endDate, $this->userId));        
+        return $this->database->queryFromPreparedStatement($query,
+        		array($this->name, $this->nPart, $this->place, $this->startDate,
+        				$this->endDate, $this->userId));
     }
-    
+
     public function delete() {
         return parent::delete('tripId', $this->tripId, 'trip');
     }
-    
+
 	public function isOwned($userId) {
 		return $userId == $this->userId;
 	}
-    
+
     public function selectById($idValue) {
         return parent::selectById('tripId', $idValue, 'trip');
     }
-    
+
     public function asArray(){
     	$res = array('tripid' => $this->tripId, 'name' => $this->name, 'place' => $this->place,
-    			'start' => $this->startDate, 'end' => $this->endDate, 'owner' => $this->userId, 
+    			'start' => $this->startDate, 'end' => $this->endDate, 'owner' => $this->userId,
     			'participants' => $this->getParticipants());
     	return $res;
     }
-    
+
     public function getParticipants(){
-    	$query = 'SELECT DISTINCT u.userId, nickname, name, surname, email 
-    				FROM participant p, user u 
+    	$query = 'SELECT DISTINCT u.userId, nickname, name, surname, email
+    				FROM participant p, user u
 					WHERE (u.userId = p.userId AND p.tripId = ?) OR u.userId = ?
     				ORDER BY name, surname';
     	return $this->database->queryFromPreparedStatement($query, array($this->tripId, $this->userId), true);
     }
-    
+
     public function addParticipant($userId){
     	$query = 'INSERT INTO participant VALUES (?, ?)';
     	$this->nPart++;
-    	return $this->database->queryFromPreparedStatement($query, array($userId, $this->tripId), false, true) 
+    	return $this->database->queryFromPreparedStatement($query, array($userId, $this->tripId), false, true)
     			&& $this->update();
     }
-    
+
     public function removeParticipant($userId) {
     	$query = 'DELETE FROM participant WHERE userId = ? AND tripId = ?';
     	$this->nPart--;
-    	return $this->database->queryFromPreparedStatement($query, array($userId, $this->tripId), false, true) 
+    	return $this->database->queryFromPreparedStatement($query, array($userId, $this->tripId), false, true)
     			&& $this->update();
     }
-    
+
     public function setTripId($tripId) {$this->tripId = $tripId;}
     public function setName($name) {$this->name = $name;}
     public function setNPart($nPart) {$this->nPart = $nPart;}
@@ -87,5 +87,5 @@ class Trip extends DbEntity {
     public function getStartDate() {return $this->startDate;}
     public function getEndDate() {return $this->endDate;}
     public function getUserId() {return $this->userId;}
-    
+
 }

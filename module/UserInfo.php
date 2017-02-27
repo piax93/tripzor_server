@@ -1,7 +1,7 @@
 <?php
 
 class UserInfo implements Module {
-	
+
 	public static function run() {
 		session_start();
 		$user = new User();
@@ -13,10 +13,10 @@ class UserInfo implements Module {
 				$user->setSurname($_POST['surname']);
 				if($user->update()) return ReturnCode::$success;
 				return ReturnCode::$error;
-			} 
+			}
 			return array($user->getNickname(), $user->getName(), $user->getSurname(), $user->getCellPhone());
 		}
 		return ReturnCode::$userNotFound;
 	}
-	
+
 }

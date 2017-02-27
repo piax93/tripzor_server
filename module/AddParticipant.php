@@ -1,7 +1,7 @@
 <?php
 
 class AddParticipant implements Module {
-	
+
 	public static function run(){
 		session_start();
 		$user = new User();
@@ -17,5 +17,5 @@ class AddParticipant implements Module {
 		}
 		return ReturnCode::$userNotFound;
 	}
-	
+
 }

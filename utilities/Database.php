@@ -4,11 +4,11 @@
  * Connection to database (singleton)
  */
 class Database {
-    
+
     private static $database = null;
     private static $log = false;
     private $connection;
-    
+
     private function __construct() {
         include 'values/DBcredentials.php';
         $this->connection = new mysqli($address, $user, $password, $databaseName);
@@ -16,7 +16,7 @@ class Database {
             die('Error connecting to DB');
         }
     }
-    
+
     /**
      * Get an instance of the database object
      * @return Database
@@ -28,20 +28,20 @@ class Database {
         }
         return self::$database;
     }
-    
+
     /**
      * Executes a query
      * @param string $query Query to execute
      * @param bool $hasResult Does the query return anything ?
      * @param bool $waitToCommit To perform transactions
-     * @return mixed An array of associative arrays representing selected rows, false in case of failure, 
+     * @return mixed An array of associative arrays representing selected rows, false in case of failure,
      *      true in case of success with nothing to return
      */
     public function execQuery($query, $hasResult = true, $waitToCommit = false){
     	$this->connection->autocommit(false);
         // mysqli_begin_transaction($this->connection);
         $result = $this->connection->query($query);
-        
+
         if(self::$log){
 			ob_start();
 			var_dump($this);
@@ -49,7 +49,7 @@ class Database {
 			ob_end_clean();
 			file_put_contents('SQL.log', $sqlLog . PHP_EOL . PHP_EOL, FILE_APPEND);
         }
-        
+
 		if($result !== false){
             if(!$waitToCommit){
                 $this->connection->commit();
@@ -75,7 +75,7 @@ class Database {
 		}
 	    return false;
 	}
-	    
+
     /**
      * Build and execute a select query
      * @param array $fields Fields to select
@@ -88,7 +88,7 @@ class Database {
             $select = implode(', ', $fields);
         }else{
             $select = $fields;
-        }        
+        }
         $query = 'SELECT ' . $select . ' FROM ' . $table;
         $fields = array();
         if(count($where) > 0) {
@@ -99,11 +99,11 @@ class Database {
         		if($i !== count($where)-1) $query .= ' AND ';
         		$fields[$i] = $value;
         		$i++;
-        	}        	
-        }        
+        	}
+        }
         return $this->queryFromPreparedStatement($query, $fields, true);
     }
-    
+
     /**
      * Execute prepared statement
      * @param string $query
@@ -126,7 +126,7 @@ class Database {
     	}
     	call_user_func_array(array($stm, 'bind_param'), $params);
     	$r = $stm->execute();
-    	
+
     	if(self::$log){
     		ob_start();
     		var_dump($this);
@@ -134,7 +134,7 @@ class Database {
     		ob_end_clean();
     		file_put_contents('SQL.log', $sqlLog . PHP_EOL . PHP_EOL, FILE_APPEND);
     	}
-    	
+
     	if($r !== false){
     		if(!$waitToCommit){
     			$this->connection->commit();
@@ -161,7 +161,7 @@ class Database {
     	}
     	return false;
     }
-	
+
 	/**
 	 * Encrypts string using a very secret salt u.u
 	 * @param string $string String to encrypt
@@ -169,19 +169,19 @@ class Database {
 	public static function encryptString($string){
 		require 'values/salt.php';
 		return crypt($string, $salt);
-	}	
-	
+	}
+
 	public static function sessionEncrypt($string){
 		require 'values/salt.php';
-		return base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($salt), 
+		return base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($salt),
 				$string, MCRYPT_MODE_CBC, md5(md5($salt))));
-	}	
-	
+	}
+
 	public static function sessionDecrypt($encrypted){
 		if($encrypted == '') return '';
 		require 'values/salt.php';
-		return rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($salt), base64_decode($encrypted), 
-				MCRYPT_MODE_CBC, md5(md5($salt))), "\0");			
+		return rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($salt), base64_decode($encrypted),
+				MCRYPT_MODE_CBC, md5(md5($salt))), "\0");
 	}
-    
+
 }

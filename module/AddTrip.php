@@ -1,7 +1,7 @@
 <?php
 
 class AddTrip implements Module {
-	
+
 	public static function run(){
 		session_start();
 		$user = new User();
@@ -24,5 +24,5 @@ class AddTrip implements Module {
 		}
 		return ReturnCode::$userNotFound;
 	}
-	
+
 }

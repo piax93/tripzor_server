@@ -1,15 +1,15 @@
 <?php
 
 class UploadMedia implements Module {
-	
+
 	public static function run() {
 		session_start ();
 		$user = new User ();
 		if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user']))) {
-		
+
 			Logger::var_dump_log('UploadMedia', $_FILES);
 			Logger::var_dump_log('UploadMedia', $_REQUEST);
-		
+
 			$userdir = MEDIA_FOLDER . $user->getUserId ();
 			if(!is_dir($userdir)) {
 				mkdir($userdir);
@@ -30,5 +30,5 @@ class UploadMedia implements Module {
 		}
 		return ReturnCode::$userNotFound;
 	}
-	
+
 }

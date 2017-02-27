@@ -4,13 +4,13 @@
  * General database entity
  */
 class DbEntity {
-    
+
     protected $database;
-    
+
     public function __construct() {
         $this->database = Database::getDbInstance();
     }
-    
+
     public function fillByAssoc($array) {
         foreach ($array as $key => $value) {
             $method = 'set' . ucfirst($key);
@@ -19,7 +19,7 @@ class DbEntity {
             }
         }
     }
-    
+
     public function selectById($idName, $idValue, $tableName){
     	if($idValue == '') return false;
         $res = $this->database->execSelectQuery('*', $tableName, array($idName => $idValue));
@@ -29,10 +29,10 @@ class DbEntity {
         }
         return false;
     }
-    
+
     public function delete($idName, $idValue, $tableName){
         $query = "DELETE FROM $tableName WHERE $idName = ?";
         return $this->database->queryFromPreparedStatement($query, array($idValue));
     }
-    
+
 }

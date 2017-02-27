@@ -1,7 +1,7 @@
 <?php
 
 class UserLogin implements Module {
-	
+
 	public static function run() {
 		session_start();
 		$user = new User();
@@ -22,5 +22,5 @@ class UserLogin implements Module {
 			return ReturnCode::$userNotFound;
 		}
 	}
-	
+
 }

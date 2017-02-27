@@ -1,7 +1,7 @@
 <?php
 
 class TripDetail implements Module {
-	
+
 	public static function run() {
 		session_start();
 		$user = new User();
@@ -12,5 +12,5 @@ class TripDetail implements Module {
 		}
 		return ReturnCode::$userNotFound;
 	}
-	
+
 }

@@ -1,7 +1,7 @@
 <?php
 
 class SearchUsers implements Module {
-	
+
 	public static function run() {
 		session_start();
 		$user = new User();
@@ -15,6 +15,6 @@ class SearchUsers implements Module {
 					array($_POST['tripId'], $user->getUserId(), $key, $key, $key), true);
 		}
 		return ReturnCode::$userNotFound;
-	}	
+	}
 
 }

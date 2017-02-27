@@ -1,7 +1,7 @@
 <?php
 
 class ForgottenPassword implements Module {
-	
+
 	public static function run(){
 		$_POST['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 		$user = new User();
@@ -23,5 +23,5 @@ class ForgottenPassword implements Module {
 		}
 		return ReturnCode::$userNotFound;
 	}
-	
+
 }
