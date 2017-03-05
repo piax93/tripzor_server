@@ -12,6 +12,8 @@ class ListTrips implements Module {
             $mytrips = $db->queryFromPreparedStatement($query, array($user->getUserId()), true);
             $query  = 'SELECT t.tripId, t.name FROM participant p, trip t WHERE p.tripId = t.tripId and p.userId = ?';
             $parttrips = $db->queryFromPreparedStatement($query, array($user->getUserId()), true);
+            if(!$mytrips) $mytrips = array();
+            if(!$parttrips) $parttrips = array();
             return array($mytrips, $parttrips);
         }
         Logger::log('ListTrips', 'User not found');
