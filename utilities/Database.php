@@ -120,6 +120,7 @@ class Database {
             if($value === null) $type .= 's';
             else $type .= substr(gettype($value), 0, 1);
         }
+
         $params[] = & $type;
         for ($i = 0; $i < count($fields); $i++) {
             $params[] = & $fields[$i];
@@ -163,10 +164,10 @@ class Database {
     }
 
     /**
-     * Encrypts string using a very secret salt u.u
+     * Creates the hash of a string using a very secret salt u.u
      * @param string $string String to encrypt
      */
-    public static function encryptString($string){
+    public static function hashString($string){
         require 'values/salt.php';
         return crypt($string, $salt);
     }

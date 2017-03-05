@@ -3,7 +3,7 @@
 class Logger {
 
     private static $logFile = 'log.log';
-    private static $enabled = true;
+    private static $enabled = false;
 
     public static function log($module, $message){
         if(!self::$enabled) return;

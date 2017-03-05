@@ -6,9 +6,9 @@ class ChangePassword implements Module {
         session_start();
         $user = new User();
         if($user->selectByEmail(Database::sessionDecrypt($_SESSION['user']))){
-            if($user->getPassword() === Database::encryptString($_POST['oldPassword'])){
+            if($user->login($_POST['oldPassword'])){
                 if($_POST['newPassword'] != ''){
-                    $user->setPassword(Database::encryptString($_POST['newPassword']));
+                    $user->setPassword(Database::hashString($_POST['newPassword']));
                     if($user->update()) return ReturnCode::$success;
                 }
             }

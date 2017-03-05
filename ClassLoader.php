@@ -38,7 +38,9 @@ class ClassLoader {
                     $res['result'] = ReturnCode::$success;
                     $res['data'] = $tmp;
                 }
-            } catch (Exception $e) { }
+            } catch (Exception $e) {
+                Logger::var_dump_log('LoadModule', $e);
+            }
         }
         echo json_encode($res);
     }

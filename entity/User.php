@@ -12,35 +12,30 @@ class User extends DbEntity{
     private $cellPhone;
     private $name;
     private $surname;
-    private $birthday = '0000-00-00';
 
     public function login($password){
-        $encr = Database::encryptString($password);
-        return $this->password === $encr;
+        return $this->password === Database::hashString($password);
     }
 
     public function update(){
         $query = "UPDATE user SET
-            email = ? ,
+                  email = ? ,
                   nickname = ? ,
                   password = ? ,
                   cellPhone = ? ,
                   name = ? ,
-                  surname = ? ,
-                  birthday = ?
-                      WHERE userId = ?";
+                  surname = ?
+                  WHERE userId = ?";
         return $this->database->queryFromPreparedStatement($query,
                 array($this->email, $this->nickname, $this->password, $this->cellPhone,
-                    $this->name, $this->surname, $this->birthday, $this->userId));
+                    $this->name, $this->surname, $this->userId));
     }
 
     public function insert(){
-        if($this->userId !== null){
-            return false;
-        }
+        if($this->userId !== null) return false;
         $this->checkNickname();
-        $query = "INSERT INTO user(email, nickname, password, cellPhone, name, surname, birthday)
-            VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO user(email, nickname, password, cellPhone, name, surname)
+            VALUES (?, ?, ?, ?, ?, ?)";
         return $this->database->queryFromPreparedStatement($query,
                 array($this->email, $this->nickname, $this->password, $this->cellPhone,
                     $this->name, $this->surname, $this->birthday));
@@ -72,7 +67,6 @@ class User extends DbEntity{
     public function setCellPhone($cellPhone) {$this->cellPhone = $cellPhone;}
     public function setName($name) {$this->name = $name;}
     public function setSurname($surname) {$this->surname = $surname;}
-    public function setBirthday($birthday) {$this->birthday = $birthday;}
     public function getUserId() {return $this->userId;}
     public function getEmail() {return $this->email;}
     public function getNickname() {return $this->nickname;}
@@ -80,6 +74,5 @@ class User extends DbEntity{
     public function getCellPhone() {return $this->cellPhone;}
     public function getName() {return $this->name;}
     public function getSurname() {return $this->surname;}
-    public function getBirthday() {return $this->birthday;}
 
 }

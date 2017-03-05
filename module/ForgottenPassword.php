@@ -7,7 +7,7 @@ class ForgottenPassword implements Module {
         $user = new User();
         if($user->selectByEmail($_POST['email'])){
             $newPassword = uniqid();
-            $user->setPassword(Database::encryptString($newPassword));
+            $user->setPassword(Database::hashString($newPassword));
             if($user->update()){
                 $body = 'Dear ' . $user->getName() . ',' . PHP_EOL . PHP_EOL
                     . 'Your password has been reset.' . PHP_EOL

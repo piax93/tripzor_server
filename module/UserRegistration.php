@@ -9,7 +9,7 @@ class UserRegistration implements Module {
         if($res !== false) {
             return ReturnCode::$userPresent;
         } else {
-            $_POST['password'] = Database::encryptString($_POST['password']);
+            $_POST['password'] = Database::hashString($_POST['password']);
             $user->fillByAssoc($_POST);
             $res = $user->insert();
             if($res !== false){
